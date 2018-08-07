@@ -24,7 +24,7 @@ public class JsonUtils {
             String description = job.getString("description");
             String image = job.getString("image");
 
-            List<String> ingredientsList = jarrToArrayList(nameJob.getJSONArray("ingredients"));
+            List<String> ingredientsList = jarrToArrayList(job.optJSONArray("ingredients"));
 
             return new Sandwich(mainName,
                     akaList,
@@ -41,7 +41,11 @@ public class JsonUtils {
     }
 
     private static ArrayList<String> jarrToArrayList(JSONArray jarr) throws JSONException {
-        ArrayList<String> arrayList = new ArrayList<String>();
+        if (jarr == null) {
+            return null;
+        }
+        
+        ArrayList<String> arrayList = new ArrayList<>();
 
         for (int i = 0; i < jarr.length(); i++) {
             arrayList.add(jarr.getString(i));
